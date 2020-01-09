@@ -6,10 +6,10 @@ const initialState = {
 
 function Reducer(state = initialState, action) {
   switch (action.type) {
-    case "UpdateState":
-      const linksArr = initialState.Links
-      linksArr.push(action.payload)
-      return {...initialState, Links:linksArr}
+    case "URL_ADDED":
+      const linksArr = initialState.Links;
+      linksArr.push(action.payload);
+      return { ...initialState, Links: linksArr };
     default:
       return state;
   }

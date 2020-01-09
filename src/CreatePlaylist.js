@@ -12,37 +12,44 @@ class CreatePlaylist extends React.Component {
     this.setState({ url: e.target.value });
   };
   addPlaylist = () => {
-    this.props.dispatch({ type: "UpdateState", payload: this.state.url });
+    this.props.dispatch({ type: "URL_ADDED", payload: this.state.url });
     this.setState({ url: "" });
   };
   getVideoId = () => {
     const links = this.props.Links;
-    const id =
+    const linkId =
       links.length &&
       links[links.length - 1].substring(
         links[links.length - 1].indexOf("=") + 1
       );
-    return id;
+    return linkId;
   };
 
   render() {
     return (
       <React.Fragment>
-        <input
-          type="url"
-          pattern="https://.*"
-          size="30"
-          placeholder="Enter Url"
-          value={this.state.url}
-          onChange={this.onChange}
-        />
-        <button onClick={this.addPlaylist}>Add</button>
+        <from>
+          <input
+            type="url"
+            style={{ height: "30px", width: "30%" }}
+            placeholder="Enter-Url"
+            pattern="https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,4}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
+            value={this.state.url}
+            onChange={this.onChange}
+          />
+        </from>
+        <button onClick={this.addPlaylist} style={{ height: "36px" }}>
+          Add
+        </button>
         <div>
+          <h1 style={{ color: "silver" }}>Playlist</h1>
+          <hr style={{ width: "34%" }} />
           {this.props.Links.map(link => (
-            <p>{link}</p>
+            <ul>{link}</ul>
           ))}
         </div>
         <div>
+          <h1 style={{ color: "silver" }}>VideoPlayer</h1>
           <iframe
             width="420"
             height="345"
@@ -53,7 +60,9 @@ class CreatePlaylist extends React.Component {
     );
   }
 }
+
 const mapStateToProps = state => {
   return state;
 };
+
 export default connect(mapStateToProps)(CreatePlaylist);
