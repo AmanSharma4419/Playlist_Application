@@ -11,7 +11,8 @@ class CreatePlaylist extends React.Component {
   onChange = e => {
     this.setState({ url: e.target.value });
   };
-  addPlaylist = () => {
+  addPlaylist = e => {
+    e.preventDefault();
     this.props.dispatch({ type: "URL_ADDED", payload: this.state.url });
     this.setState({ url: "" });
   };
@@ -28,7 +29,7 @@ class CreatePlaylist extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <from>
+        <form onSubmit={this.addPlaylist}>
           <input
             type="url"
             style={{ height: "30px", width: "30%" }}
@@ -37,10 +38,10 @@ class CreatePlaylist extends React.Component {
             value={this.state.url}
             onChange={this.onChange}
           />
-        </from>
-        <button onClick={this.addPlaylist} style={{ height: "36px" }}>
-          Add
-        </button>
+          <button type="submit" style={{ height: "36px" }}>
+            Add
+          </button>
+        </form>
         <div>
           <h1 style={{ color: "silver" }}>Playlist</h1>
           <hr style={{ width: "34%" }} />
